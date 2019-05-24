@@ -8,7 +8,6 @@ import java.util.List;
 public interface PresenterContract {
     void bind(ViewContract view);
     void unBind();
-    List<CakeDetailsPojo> getCakes();
     void initNetworkConnection();
     void networkSuccessful(List<CakeDetailsPojo> dataSet);
     void networkFailure(String message);

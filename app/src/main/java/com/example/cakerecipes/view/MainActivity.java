@@ -8,23 +8,38 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
 import com.example.cakerecipes.R;
+import com.example.cakerecipes.di.CustomApp;
 import com.example.cakerecipes.model.CakeDetailsPojo;
 import com.example.cakerecipes.presenter.Presenter;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
+
+
+import javax.inject.Inject;
+
+import butterknife.BindString;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements ViewContract {
 
-    private Presenter presenter;
+    @Inject
+    public Presenter presenter;
     private CustomAdapter adapter;
-    private RecyclerView recyclerView;
+    @BindView(R.id.recyclerView)
+    public RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+
+        ((CustomApp)getApplicationContext()).getComponent().inject(this);
+
         //todo bind the recyclerview and adapter
-        recyclerView = findViewById(R.id.recyclerView);
+//        recyclerView = findViewById(R.id.recyclerView);
         adapter = new CustomAdapter();
 
         recyclerView.setHasFixedSize(true);
@@ -34,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements ViewContract {
                 ));
 
         bindPresenter();
+
     }
 
     @Override
@@ -51,13 +67,15 @@ public class MainActivity extends AppCompatActivity implements ViewContract {
 
     @Override
     public void bindPresenter() {
-        presenter = new Presenter();
+//        presenter = new Presenter();
         presenter.bind(this);
+        populateCakeList();
     }
 
     @Override
     public void getCakeList(List<CakeDetailsPojo> dataSet) {
         //todo send data set to adapter.
+        recyclerView.setAdapter(adapter);
         adapter.setDataset(dataSet);
     }
 }

@@ -8,12 +8,19 @@ import android.widget.TextView;
 
 import com.example.cakerecipes.R;
 
-class CustomViewHolder extends RecyclerView.ViewHolder {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import dagger.Module;
+import dagger.Provides;
+
+public class CustomViewHolder extends RecyclerView.ViewHolder {
+    @BindView(R.id.cakeImage)
     public ImageView imageView;
+    @BindView(R.id.cakeTitle)
     public TextView textView;
+
     public CustomViewHolder(@NonNull View itemView) {
         super(itemView);
-        imageView = itemView.findViewById(R.id.cakeImage);
-        textView = itemView.findViewById(R.id.cakeTitle);
+        ButterKnife.bind(this, itemView);
     }
 }

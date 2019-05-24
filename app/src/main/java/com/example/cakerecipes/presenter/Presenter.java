@@ -6,11 +6,32 @@ import com.example.cakerecipes.view.ViewContract;
 
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import dagger.Module;
+import dagger.Provides;
+
+
 public class Presenter implements PresenterContract {
 
     private ViewContract view;
+//    @Inject
     private NetworkConnection network;
+
     private List<CakeDetailsPojo> dataSet;
+
+    @Inject
+    public Presenter(NetworkConnection network){
+        this.network = network;
+//        network.setPresenter(this);
+    }
+
+
+//    @Provides
+//    public Presenter initPresenter(){
+//        return new Presenter();
+//    }
 
     @Override
     public void bind(ViewContract view) {
@@ -23,15 +44,6 @@ public class Presenter implements PresenterContract {
         view = null;
         dataSet = null;
         network = null;
-    }
-
-    /**
-     *
-     * @return the list of cakes to the view
-     */
-    @Override
-    public List<CakeDetailsPojo> getCakes() {
-        return null;
     }
 
     @Override

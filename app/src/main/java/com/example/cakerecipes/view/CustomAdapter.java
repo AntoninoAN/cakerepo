@@ -12,6 +12,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+
 public class CustomAdapter extends RecyclerView.Adapter<CustomViewHolder> {
 
     //todo we need the dataset
@@ -50,6 +51,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomViewHolder> {
         );
         Picasso.get()
                 .load(dataset.get(i).image)
+                .error(R.drawable.ic_launcher_foreground)
+                .placeholder(R.drawable.ic_launcher_background)
                 .into(customViewHolder.imageView);
     }
 
